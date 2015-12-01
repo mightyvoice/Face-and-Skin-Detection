@@ -151,7 +151,7 @@ void GetAllBodySkinRatios::getAllSkinToBodyRatioFromFiles(
         return;
     }
 
-    ofstream file(resFileName, std::ios::out|std::ios::ate);
+    ofstream file(resFileName.c_str(), std::ios::out|std::ios::ate);
     if(!file){
         cout<<"Cannot open the result file: "+resFileName<<endl;
         return;
