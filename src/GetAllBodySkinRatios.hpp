@@ -23,11 +23,12 @@ public:
 	GetAllBodySkinRatios(Mat _srcImg);
 	static vector<string> getAllFilesFromDir(string dirPath);
 	static Mat extractBodyFromFace(Mat _srcImg, Rect face);
-    static vector<double> getAllSkinToBodyRatio(Mat _srcImg, const vector<Rect>& facePos);
-    static vector<double> getAllSkinToBodyRatio(Mat _srcImg, string jasonPath);
-    static void skinDetecFromFaceSkinVal(Mat _srcImg, const vector<Rect>& faces);
-    static void getAllBodyPos(string imgPath);
+  static vector<double> getAllSkinToBodyRatio(Mat _srcImg, const vector<Rect>& facePos);
+  static vector<double> getAllSkinToBodyRatio(Mat _srcImg, string jasonPath);
+  static void skinDetecFromFaceSkinVal(Mat _srcImg, const vector<Rect>& faces);
+  static void getAllBodyPos(string imgPath);
 
+  static void fixRectWithinBoundary(Rect &cur, Mat srcImg);
   static void getAllSkinToBodyRatioFromFiles(
     const string picDir, 
     const string jsonFileName, 

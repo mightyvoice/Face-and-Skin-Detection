@@ -140,6 +140,17 @@ vector<string> GetAllBodySkinRatios::getAllFilesFromDir(string dirPath){
     return res;
 }
 
+void GetAllBodySkinRatios::fixRectWithinBoundary(Rect &cur, Mat srcImg){
+    int row = srcImg.rows;
+    int col = srcImg.cols;
+    if(cur.x + cur.width >= col){
+        cur.width = col-cur.x;
+    }
+    if(cur.y + cur.height >= row){
+        cur.height = row-cur.y;
+    }
+}
+
 void GetAllBodySkinRatios::getAllSkinToBodyRatioFromFiles(
     const string picDir, 
     const string jsonFilePath, 
@@ -193,13 +204,17 @@ void GetAllBodySkinRatios::getAllSkinToBodyRatioFromFiles(
     vector<vector<int> > bodyPos = ParseJson::getBodyPosFromJsonFile(jsonFilePath);
     if(bodyPos.size() > 0){
         vector<double> ratios;
-        for(int j = 0; j < bodyPos.size(); j++){
+        for(int i = 0; i < bodyPos.size(); i++){
             Rect bodyRect;
             // cout<<bodyPos[j][0]<<' '<<bodyPos[j][1]<<' '<<bodyPos[j][2]<<' '<<bodyPos[j][3]<<endl;
-            bodyRect.x = bodyPos[j][0];
-            bodyRect.y = bodyPos[j][1];
-            bodyRect.width = bodyPos[j][2] - bodyRect.x;
-            bodyRect.height = bodyPos[j][3] - bodyRect.y;
+            bodyRect.x = bodyPos[i][0];
+            bodyRect.y = bodyPos[i][1];
+            bodyRect.width = bodyPos[i][2] - bodyRect.x;
+            bodyRect.height = bodyPos[i][3] - bodyRect.y;
+            // cout<<srcImg.cols<<' '<<srcImg.rows<<endl;
+            // cout<<bodyRect.x<<' '<<bodyRect.y<<' '<<bodyRect.width<<' '<<bodyRect.height<<endl;
+            fixRectWithinBoundary(bodyRect, srcImg);
+            // cout<<bodyRect.x<<' '<<bodyRect.y<<' '<<bodyRect.width<<' '<<bodyRect.height<<endl;
             Mat bodyImg = srcImg(bodyRect);
             Mat mask = bodyImg.clone();
             AdaptiveSkinDetector detector;
@@ -208,7 +223,7 @@ void GetAllBodySkinRatios::getAllSkinToBodyRatioFromFiles(
         res = *max_element(ratios.begin(), ratios.end());
     }
     else{
-        cout<<"There are no bodies in the picture: " + picFileName<<endl;
+        cout<<"There are no bodies in the picture: " + picFilePath<<endl;
         res = 0.0;
     }
     // cout<<res<<endl;
