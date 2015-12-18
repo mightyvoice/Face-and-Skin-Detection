@@ -2,8 +2,6 @@
 #ifndef GETALLBODYSKINRATIOS_H
 #define GETALLBODYSKINRATIOS_H
 
-#include <dirent.h>
-#include <fstream>
 #include "OpenCVCommon.hpp"
 #include "FaceDetection.hpp"
 #include "AdaptiveSkinDetector.hpp"
@@ -18,6 +16,7 @@ private:
     };
 
 public:
+  const static double NAKE_SKIN_RATIO = 0.40;
 	vector<Rect> allFaces;
 	GetAllBodySkinRatios(){};
 	GetAllBodySkinRatios(Mat _srcImg);
@@ -27,7 +26,6 @@ public:
   static vector<double> getAllSkinToBodyRatio(Mat _srcImg, string jasonPath);
   static void skinDetecFromFaceSkinVal(Mat _srcImg, const vector<Rect>& faces);
   static void getAllBodyPos(string imgPath);
-
   static void fixRectWithinBoundary(Rect &cur, Mat srcImg);
   static void getAllSkinToBodyRatioFromFiles(
     const string picDir, 

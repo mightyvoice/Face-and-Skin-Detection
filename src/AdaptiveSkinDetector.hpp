@@ -5,7 +5,8 @@
 
 #include "OpenCVCommon.hpp"
 #include "Histogram.hpp"
-// #include "FaceDetection.hpp"
+#include "FaceDetection.hpp"
+#include "MyLib.hpp"
 /**
  * @brief The AdaptiveSkinColor class : Class incapsulating adaptive skin color detector
  * based on the paper An adaptive real-time skin detector based on Hue thresholding:
@@ -42,6 +43,8 @@ class AdaptiveSkinDetector //: public Logger
     Mat srcImg;
 
     const static int FACE_SKIN_EPS = 8;
+    bool badColorSet[40] = {0};
+
     // const static double SKIN_AREA_RATIO_TO_BE_NAKED = 0.4;
 
     // bool inRect(int x, int y, vector<Rect> faces);
@@ -57,13 +60,22 @@ public:
      * @param image : input BGR image
      * @param mask : output mask ,1 are skin color pixels
      */
+    const static double BODY_TO_FRAME_RATIO = 0.6;
+    const static double NAKE_SKIN_RATIO = 0.41;
     vector<Rect> allFaces;
 
+
+    void initSkinDetectParams();
     void run(Mat image, Mat &mask);
+    void run1(Mat image, Mat &mask);
     // void run(Mat image, Mat &mask, const vector<Rect>& facePos);
     double skinToBodyRatio(Mat image, Mat &mask);
     int faceSkinColorValue(Mat image, Mat &mask);
     void skinDetecFromFaceSkinVal(Mat image, Mat &mask, int faceSkinVal);
+    pair<int, int> getSkinColorValueRange(Mat image, Mat &mask);
+    void skinDetectFromBodyImg(Mat image);
+    double skinDetectFromImgShrink(Mat image);
+
 
 };
 

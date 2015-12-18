@@ -140,6 +140,7 @@ vector<string> GetAllBodySkinRatios::getAllFilesFromDir(string dirPath){
     return res;
 }
 
+
 void GetAllBodySkinRatios::fixRectWithinBoundary(Rect &cur, Mat srcImg){
     int row = srcImg.rows;
     int col = srcImg.cols;
@@ -150,6 +151,8 @@ void GetAllBodySkinRatios::fixRectWithinBoundary(Rect &cur, Mat srcImg){
         cur.height = row-cur.y;
     }
 }
+
+
 
 void GetAllBodySkinRatios::getAllSkinToBodyRatioFromFiles(
     const string picDir, 
@@ -216,9 +219,9 @@ void GetAllBodySkinRatios::getAllSkinToBodyRatioFromFiles(
             fixRectWithinBoundary(bodyRect, srcImg);
             // cout<<bodyRect.x<<' '<<bodyRect.y<<' '<<bodyRect.width<<' '<<bodyRect.height<<endl;
             Mat bodyImg = srcImg(bodyRect);
-            Mat mask = bodyImg.clone();
+            // Mat mask = bodyImg.clone();
             AdaptiveSkinDetector detector;
-            ratios.push_back(detector.skinToBodyRatio(bodyImg, mask));
+            ratios.push_back(detector.skinDetectFromImgShrink(bodyImg));
         }
         res = *max_element(ratios.begin(), ratios.end());
     }

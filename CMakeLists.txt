@@ -9,5 +9,5 @@ add_library(jsoncppLib STATIC IMPORTED)
 set_property(TARGET jsoncppLib PROPERTY IMPORTED_LOCATION ./jsoncpp-master/build/debug/libjsoncpp.a)
 ######### add jsoncpp static library ################
 
-add_executable( SkinDetection ./src/main.cpp ./src/AdaptiveSkinDetector.cpp ./src/Histogram.cpp ./src/FaceDetection.cpp ./src/GetAllBodySkinRatios.cpp ./src/ParseJson.cpp)
+add_executable( SkinDetection ./src/main.cpp ./src/AdaptiveSkinDetector.cpp ./src/Histogram.cpp ./src/FaceDetection.cpp ./src/GetAllBodySkinRatios.cpp ./src/ParseJson.cpp ./src/Test.cpp ./src/MyLib.cpp)
 target_link_libraries( SkinDetection ${OpenCV_LIBS} jsoncppLib)

@@ -28,6 +28,8 @@
 #include <iostream>
 #include <map>
 #include <ctime>
+#include <dirent.h>
+#include <fstream>
 
 #include "opencv/cv.h"
 #include "opencv2/opencv.hpp"
