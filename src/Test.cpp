@@ -115,7 +115,8 @@ void Test::getAllSkinToBodyRatioFromFiles(
 void Test::getAllSkinRatiosFromPicDir(string picDir){
     cout<<picDir<<endl;
     vector<string> picFileNames = MyLib::getAllFileNamesFromDir(picDir);
-    for(auto picName: picFileNames){
+    for(int ii = 0; ii < picFileNames.size(); ii++){
+        string picName = picFileNames[ii];
         string picPath = picDir+"/"+picName;
         // cout<<picPath<<endl;
         if(picPath[picPath.length()-1] == 'g'){

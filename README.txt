@@ -6,7 +6,10 @@
 
 解压当前目录下的jsoncpp-master.zip得到文件夹jsoncpp-master
 
-打开终端进入当前目录，然后输入以下命令安装jsoncpp:
+如果没有安装cmake, 如下命令安装cmake
+sudo apt-get install cmake
+
+打开终端进入SkinDetection文件夹，然后输入以下命令安装jsoncpp:
 
 cd jsoncpp-master
 mkdir -p build/debug
@@ -20,10 +23,7 @@ sudo make install
 
 回到文件夹SkinDetection
 
-如果没有安装cmake, 如下命令安装cmake
-sudo apt-get install cmake
-
-安装完成后输入命令
+输入命令
 cmake .
 然后输入
 make
