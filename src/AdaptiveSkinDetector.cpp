@@ -292,7 +292,7 @@ void AdaptiveSkinDetector::skinDetectFromBodyImg(Mat image){
     waitKey();
 }
 
-double AdaptiveSkinDetector::skinDetectFromImgShrink(Mat image){
+double AdaptiveSkinDetector::skinDetectFromImgShrink(Mat image, string picName){
     int width = image.cols;
     int height = image.rows;
     Rect bodyRect;
@@ -304,9 +304,9 @@ double AdaptiveSkinDetector::skinDetectFromImgShrink(Mat image){
     Mat bodyImg = image(bodyRect);
     Mat mask = bodyImg.clone();
     initSkinDetectParams();
-    return skinToBodyRatio(bodyImg, mask);
-    // MyLib::writeMatToJpgFile(mask, "./pic/people-res/"+picName);
-    // MyLib::writeMatToJpgFile(bodyImg, "./pic/people-res/frame-"+picName);
+    double res = skinToBodyRatio(bodyImg, mask);
+    // MyLib::writeMatToJpgFile(bodyImg, picName+"-frame-1.jpg");
+    // MyLib::writeMatToJpgFile(mask, picName+"-frame-2.jpg");
     // namedWindow("original", WINDOW_AUTOSIZE);
     // imshow("original", image);
     // namedWindow("original1", WINDOW_AUTOSIZE);
@@ -314,6 +314,7 @@ double AdaptiveSkinDetector::skinDetectFromImgShrink(Mat image){
     // namedWindow("Processed", WINDOW_AUTOSIZE);
     // imshow("Processed", mask);
     // waitKey();
+    return res;
 }
 
 double AdaptiveSkinDetector::skinToBodyRatio(Mat image, Mat &mask)

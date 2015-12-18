@@ -61,7 +61,7 @@ public:
      * @param mask : output mask ,1 are skin color pixels
      */
     const static double BODY_TO_FRAME_RATIO = 0.6;
-    const static double NAKE_SKIN_RATIO = 0.41;
+    const static double NAKE_SKIN_RATIO = 0.43;
     vector<Rect> allFaces;
 
 
@@ -74,7 +74,7 @@ public:
     void skinDetecFromFaceSkinVal(Mat image, Mat &mask, int faceSkinVal);
     pair<int, int> getSkinColorValueRange(Mat image, Mat &mask);
     void skinDetectFromBodyImg(Mat image);
-    double skinDetectFromImgShrink(Mat image);
+    double skinDetectFromImgShrink(Mat image, string picName="");
 
 
 };

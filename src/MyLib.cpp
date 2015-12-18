@@ -37,7 +37,7 @@ string MyLib::int2String(int x){
 	if(x == 0) return "0";
 	string ans = "";
 	while(x){
-		ans += (char)(x%10);
+		ans += (char)('0'+x%10);
 		x /= 10;
 	}
 	reverseStr(ans);

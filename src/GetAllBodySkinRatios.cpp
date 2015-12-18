@@ -226,10 +226,9 @@ void GetAllBodySkinRatios::getAllSkinToBodyRatioFromFiles(
         res = *max_element(ratios.begin(), ratios.end());
     }
     else{
-        cout<<"There are no bodies in the picture: " + picFilePath<<endl;
+        // cout<<"There are no bodies in the picture: " + picFilePath<<endl;
         res = 0.0;
     }
-    // cout<<res<<endl;
     file<<res<<endl;
     file.close();
 }

@@ -38,7 +38,8 @@ void Test::getAllSkinToBodyRatioFromFiles(
     vector<string> picFileNames = MyLib::getAllFileNamesFromDir(picDir);
     // vector<string> jsonFileNames = MyLib::getAllFileNamesFromDir(jsonDir);
     int n = picFileNames.size();
-    for(auto picFileName: picFileNames){	
+    for(int ii = 0; ii < picFileNames.size(); ii++){
+        string picFileName = picFileNames[ii];
     	cout<<picFileName<<endl;
     	string picFilePath = picDir;
     	if(picFilePath[picDir.length()-1] != '/'){
@@ -79,35 +80,22 @@ void Test::getAllSkinToBodyRatioFromFiles(
     	        // Mat bodyImgCopy = srcImg(bodyRect);
     	        // Mat mask = bodyImg.clone();
     	        AdaptiveSkinDetector detector;
-    	        ratios.push_back(detector.skinDetectFromImgShrink(bodyImg));
-    	  //       if(i == 0){
-	    	 //    	MyLib::writeMatToJpgFile(bodyImg, "./pic/people-res/"+
-	    	 //    	                            MyLib::getNameFromFileName(picFileName)
-	    	 //    	                            +"-frame.jpg");
-	    	 //    	MyLib::writeMatToJpgFile(mask, "./pic/people-res/"+
-	    	 //    	                            MyLib::getNameFromFileName(picFileName)
-	    	 //    	                            +".jpg");
-	    		// }
-	    		// else{
-	    		// 	MyLib::writeMatToJpgFile(bodyImg, "./pic/people-res/"+
-	    	 //    	                            MyLib::getNameFromFileName(picFileName)
-	    	 //    	                            +MyLib::int2String(i)
-	    	 //    	                            +"-frame.jpg");
-	    		// 	MyLib::writeMatToJpgFile(mask, "./pic/people-res/"+
-	    	 //    	                            MyLib::getNameFromFileName(picFileName)
-	    	 //    	                            +MyLib::int2String(i)
-	    	 //    	                            +".jpg");
-	    		// }
+                string bodyImgName = "./pic/bad-pic/"
+                                     + MyLib::getNameFromFileName(picFileName) 
+                                     + "-"+MyLib::int2String(i);
+
+    	        ratios.push_back(detector.skinDetectFromImgShrink(bodyImg, bodyImgName));
+    	    	// MyLib::writeMatToJpgFile(bodyImg, bodyImgName + "-frame-0.jpg");
 
     	    }
     	    res = *max_element(ratios.begin(), ratios.end());
     	    if(res >= AdaptiveSkinDetector::NAKE_SKIN_RATIO){
     	    	nakePicNum++;
-    	    	// resFile<<picFileName+": "<<res<<endl;
+    	    	resFile<<picFileName+": "<<res<<endl;
     	    }
     	    else{
     	    	nonNakePicNum++;
-    	    	resFile<<picFileName+": "<<res<<endl;
+    	    	// resFile<<picFileName+": "<<res<<endl;
     	    }
     	}
     	else{
@@ -118,10 +106,10 @@ void Test::getAllSkinToBodyRatioFromFiles(
     	// resFile<<picFileName+": "<<res<<endl;
     }
 	resFile.close();
-	const int NAKE_PIC_NUM = 73;
-	const int NON_NAKE_PIC_NUM = 77;
-	cout<<"Naked recognition ratio: "<<nakePicNum*100.0/NAKE_PIC_NUM<<"%"<<endl;
-	// cout<<"None naked recognition ratio: "<<nakePicNum*100.0/NON_NAKE_PIC_NUM<<"%"<<endl;
+	const int NAKE_PIC_NUM = 67;
+	const int NON_NAKE_PIC_NUM = 71;
+	// cout<<"Naked recognition ratio: "<<nakePicNum*100.0/NAKE_PIC_NUM<<"%"<<endl;
+	cout<<"None naked recognition ratio: "<<nakePicNum*100.0/NON_NAKE_PIC_NUM<<"%"<<endl;
 }
 
 void Test::getAllSkinRatiosFromPicDir(string picDir){

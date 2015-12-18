@@ -9,6 +9,7 @@
 #include "ParseJson.hpp"
 #include "GetAllBodySkinRatios.hpp"
 #include "Test.hpp"
+#include "MyLib.hpp"
 
 
 // Mat dst;
@@ -67,7 +68,7 @@ void skinDetection(Mat src){
 
 
 int main(int argc, char** argv){
-	Mat src;
+	// Mat src;
 	// src = imread(argv[1], 1);
 	// skinDetection(src);
 	// AdaptiveSkinDetector detector;
@@ -81,7 +82,7 @@ int main(int argc, char** argv){
 		return 0;
 	}
 	else{
-		Test::getAllSkinToBodyRatioFromFiles(argv[1], argv[2], argv[3]);
+		GetAllBodySkinRatios::getAllSkinToBodyRatioFromFiles(argv[1], argv[2], argv[3]);
 	}
 
 
